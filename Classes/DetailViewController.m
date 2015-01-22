@@ -110,6 +110,13 @@
 	[self.view addSubview:coverView];
 }
 
+- (void)viewDidLoad
+{
+    if (self.goURL) {
+        [self openURL:self.goURL withAnchor:self.goAnchor];
+    }
+}
+
 - (void)docSetWillBeDeleted:(NSNotification *)notification
 {
 	if (notification.object == self.docSet) {
@@ -309,7 +316,16 @@
 	self.docSet = set;
 	NSURL *URL = [self.docSet URLForNode:node];
 	
-	NSString *nodeAnchor = [node valueForKey:@"kAnchor"];
+	NSString *nodeAnchor = nil;
+    @try {
+        nodeAnchor = [node valueForKey:@"kAnchor"];
+    }
+    @catch (NSException *exception) {
+        nodeAnchor = nil;
+    }
+    @finally {
+        
+    }
 	if (nodeAnchor.length == 0) nodeAnchor = nil;
 	
 	//Handle soft redirects (they otherwise break the history):	
@@ -322,7 +338,8 @@
 			URL = [NSURL URLWithString:relativeRedirectPath relativeToURL:URL];
 		}
 	}
-	[self openURL:URL withAnchor:nodeAnchor];
+    
+    [self openURL:URL withAnchor:nodeAnchor];
 }
 
 - (void)showToken:(NSDictionary *)tokenInfo inDocSet:(DocSet *)set
@@ -377,22 +394,28 @@
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
 		[bookmarksPopover dismissPopoverAnimated:YES];
 	} else {
-		[self dismissModalViewControllerAnimated:YES];
+//		[self dismissModalViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
 	}
 }
 
 - (void)openURL:(NSURL *)URL withAnchor:(NSString *)anchor
 {
-	if (anchor) {
-		NSURL *URLWithAnchor = [NSURL URLWithString:[[URL absoluteString] stringByAppendingFormat:@"#%@", anchor]];
-		[webView loadRequest:[NSURLRequest requestWithURL:URLWithAnchor]];
-	} else {
-		[webView loadRequest:[NSURLRequest requestWithURL:URL]];
-	}
-	[self updateBackForwardButtons];
-	if ([self.parentViewController isKindOfClass:[SwipeSplitViewController class]]) {
-		[(SwipeSplitViewController *)self.parentViewController hideMasterViewControllerAnimated:YES];
-	}
+    if (webView) {
+        if (anchor && 0) {
+            NSURL *URLWithAnchor = [NSURL URLWithString:[[URL absoluteString] stringByAppendingFormat:@"#%@", anchor]];
+            [webView loadRequest:[NSURLRequest requestWithURL:URLWithAnchor]];
+        } else {
+            [webView loadRequest:[NSURLRequest requestWithURL:URL]];
+        }
+        [self updateBackForwardButtons];
+        if ([self.parentViewController isKindOfClass:[SwipeSplitViewController class]]) {
+            [(SwipeSplitViewController *)self.parentViewController hideMasterViewControllerAnimated:YES];
+        }
+    }else {
+        self.goURL = URL;
+        self.goAnchor = anchor;
+    }
 }
 
 #pragma mark -

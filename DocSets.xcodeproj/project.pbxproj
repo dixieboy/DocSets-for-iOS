@@ -125,6 +125,9 @@
 		7FF70B5412AD15B7001FF09F /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FF70B5212AD15B7001FF09F /* Back.png */; };
 		7FF70B5512AD15B7001FF09F /* Forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FF70B5312AD15B7001FF09F /* Forward.png */; };
 		7FF70C1512AD3FB8001FF09F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FF70C1412AD3FB8001FF09F /* libz.dylib */; };
+		B8576F701A6FA21E00FCC820 /* Default-1334@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8576F6E1A6FA21E00FCC820 /* Default-1334@2x.png */; };
+		B8576F711A6FA21E00FCC820 /* Default-2208@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8576F6F1A6FA21E00FCC820 /* Default-2208@3x.png */; };
+		B8576F731A6FA2C200FCC820 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8576F721A6FA2C200FCC820 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -289,6 +292,9 @@
 		7FF70B5212AD15B7001FF09F /* Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Back.png; sourceTree = "<group>"; };
 		7FF70B5312AD15B7001FF09F /* Forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Forward.png; sourceTree = "<group>"; };
 		7FF70C1412AD3FB8001FF09F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		B8576F6E1A6FA21E00FCC820 /* Default-1334@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1334@2x.png"; sourceTree = "<group>"; };
+		B8576F6F1A6FA21E00FCC820 /* Default-2208@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-2208@3x.png"; sourceTree = "<group>"; };
+		B8576F721A6FA2C200FCC820 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DocSets/Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -357,6 +363,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B8576F721A6FA2C200FCC820 /* Images.xcassets */,
 				7F1D42C814D1628400A85CB3 /* Info.plist */,
 				7F1D42C614D1627D00A85CB3 /* AvailableDocSets.plist */,
 				7F1D42CA14D1629100A85CB3 /* docSet.mom */,
@@ -422,6 +429,8 @@
 				7F1D434114D18AD600A85CB3 /* Default.png */,
 				7F1D434214D18AD600A85CB3 /* Default@2x.png */,
 				7F97CFCE160CDDB800313B1D /* Default-568h@2x.png */,
+				B8576F6E1A6FA21E00FCC820 /* Default-1334@2x.png */,
+				B8576F6F1A6FA21E00FCC820 /* Default-2208@3x.png */,
 				7F1D434314D18AD600A85CB3 /* Default-Portrait~ipad.png */,
 				7F1D434414D18AD600A85CB3 /* Default-Landscape~ipad.png */,
 				7F7862F2150D4390003CFB2E /* Default-Landscape~ipad@2x.png */,
@@ -704,6 +713,7 @@
 				7F1D433114D1651B00A85CB3 /* BookIcon@2x.png in Resources */,
 				7F1D433214D1651B00A85CB3 /* DocSet@2x.png in Resources */,
 				7F1D433314D1651B00A85CB3 /* ReferenceIcon@2x.png in Resources */,
+				B8576F701A6FA21E00FCC820 /* Default-1334@2x.png in Resources */,
 				7F1D433414D1651B00A85CB3 /* SampleCodeIcon@2x.png in Resources */,
 				7F1D433814D1656700A85CB3 /* Back@2x.png in Resources */,
 				7F1D433914D1656700A85CB3 /* Forward@2x.png in Resources */,
@@ -713,6 +723,8 @@
 				7F1D434714D18AD600A85CB3 /* Default-Portrait~ipad.png in Resources */,
 				7F1D434814D18AD600A85CB3 /* Default-Landscape~ipad.png in Resources */,
 				7F1D435014D1C28B00A85CB3 /* OutlineDisclosureButton.png in Resources */,
+				B8576F731A6FA2C200FCC820 /* Images.xcassets in Resources */,
+				B8576F711A6FA21E00FCC820 /* Default-2208@3x.png in Resources */,
 				7F1D435414D1CF0900A85CB3 /* OutlineDisclosureButton@2x.png in Resources */,
 				5D892D8A14D73C5A005B3273 /* Cancel-Pressed.png in Resources */,
 				5D892D8B14D73C5A005B3273 /* Cancel-Pressed@2x.png in Resources */,
@@ -790,6 +802,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = DocSets.entitlements;
 				COPY_PHASE_STRIP = NO;
@@ -803,6 +817,7 @@
 					"${SDKROOT}/usr/include/libxml2/**",
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SDKROOT)/usr/lib/system\"",
@@ -818,6 +833,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = DocSets.entitlements;
 				COPY_PHASE_STRIP = YES;
@@ -829,6 +846,7 @@
 					"${SDKROOT}/usr/include/libxml2/**",
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SDKROOT)/usr/lib/system\"",

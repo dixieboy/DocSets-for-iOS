@@ -258,7 +258,21 @@
 
 - (NSURL *)URLForNode:(NSManagedObject *)node
 {
-	NSString *nodePath = [node valueForKey:@"kPath"];
+	NSString *nodePath = nil;
+    @try {
+        nodePath = [node valueForKey:@"kPath"];
+    }
+    @catch (NSException *exception) {
+        nodePath = nil;
+    }
+    @finally {
+        
+    }
+    
+    if (nodePath == nil) {
+        return nil;
+    }
+    
 	NSString *fullPath = [[path stringByAppendingPathComponent:@"Contents/Resources/Documents"] stringByAppendingPathComponent:nodePath];
 	NSURL *URL = [NSURL fileURLWithPath:fullPath];
 	
@@ -308,11 +322,15 @@
 	if (numberOfSubnodes == 0) return NO;
 	
 	NSURL *nodeURL = [self URLForNode:node];
-	NSURL *bookURL = [[nodeURL URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"book.json"];
-	if ([[NSFileManager defaultManager] fileExistsAtPath:[bookURL path]]) {
-		return NO;
-	}
-	return YES;
+    if (nodeURL) {
+        NSURL *bookURL = [[nodeURL URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"book.json"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[bookURL path]]) {
+            return NO;
+        }
+        return YES;
+    }else {
+        return NO;
+    }
 }
 
 - (NSManagedObjectContext *)managedObjectContext
@@ -328,7 +346,8 @@
 {
 	if (!persistentStoreCoordinator) {
 		NSURL *storeURL = [NSURL fileURLWithPath:[path stringByAppendingPathComponent:@"Contents/Resources/docSet.dsidx"]];
-		NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"docSet" withExtension:@"mom"];
+//		NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"docSet" withExtension:@"mom"];
+        NSURL *modelURL = [NSURL fileURLWithPath:[path stringByAppendingPathComponent:@"Contents/Resources/docSet.mom"]];
 		NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
 		
 		persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
@@ -343,7 +362,7 @@
 
 - (void)dealloc
 {
-	dispatch_release(searchQueue);
+//	dispatch_release(searchQueue);
 }
 
 @end

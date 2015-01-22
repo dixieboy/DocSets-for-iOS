@@ -40,6 +40,8 @@
 
 @property (nonatomic, strong) DocSet *docSet;
 @property (nonatomic, strong) NSURL *currentURL;
+@property (nonatomic, strong) NSURL *goURL;
+@property (nonatomic, strong) NSString *goAnchor;
 
 - (void)showNode:(NSManagedObject *)node inDocSet:(DocSet *)docSet;
 - (void)showToken:(NSDictionary *)tokenInfo inDocSet:(DocSet *)docSet;
