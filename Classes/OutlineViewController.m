@@ -21,7 +21,7 @@
 	visibleItems = [rootItem flattenedChildren];
 	
 	self.title = outlineTitle;
-	self.contentSizeForViewInPopover = CGSizeMake(360, 1024);
+	self.preferredContentSize = CGSizeMake(360, 1024);
 	return self;
 }
 

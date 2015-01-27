@@ -34,7 +34,7 @@
 	nodeSections = [docSet nodeSectionsForRootNode:rootNode];
 	
 	self.title = (rootNode != nil) ? [rootNode valueForKey:@"kName"] : docSet.title;
-	self.contentSizeForViewInPopover = CGSizeMake(400.0, 1024.0);
+	self.preferredContentSize = CGSizeMake(400.0, 1024.0);
 	
 	iconsByTokenType = [[NSDictionary alloc] initWithObjectsAndKeys:
 						[UIImage imageNamed:@"Const"], @"econst",
@@ -378,12 +378,12 @@
 	vc.delegate = self;
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
 	navController.toolbarHidden = NO;
-	[self presentModalViewController:navController animated:YES];
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 - (void)bookmarksViewController:(BookmarksViewController *)viewController didSelectBookmark:(NSDictionary *)bookmark
-{	
-	[viewController dismissModalViewControllerAnimated:YES];
+{
+    [viewController dismissViewControllerAnimated:YES completion:nil];
 	DetailViewController *vc = [[DetailViewController alloc] initWithNibName:nil bundle:nil];
 	vc.docSet = self.docSet;
 	[self.navigationController pushViewController:vc animated:YES];
@@ -448,9 +448,9 @@
 		NSRange searchTermRange = [self.textLabel.text rangeOfString:searchTerm options:NSCaseInsensitiveSearch];
 		if (searchTermRange.location != NSNotFound) {
 			UIFont *font = self.textLabel.font;
-			CGSize searchTermSize = [searchTerm sizeWithFont:font]; 
+			CGSize searchTermSize = [searchTerm sizeWithAttributes:@{NSFontAttributeName: font}];
 			NSString *prefix = [self.textLabel.text substringToIndex:searchTermRange.location];
-			CGSize prefixSize = [prefix sizeWithFont:font];
+			CGSize prefixSize = [prefix sizeWithAttributes:@{NSFontAttributeName: font}];
 			CGRect highlightRect = CGRectMake(self.textLabel.frame.origin.x + prefixSize.width, self.textLabel.frame.origin.y, searchTermSize.width, self.textLabel.frame.size.height);
 			self.textLabel.backgroundColor = [UIColor clearColor];
 			highlightView.frame = highlightRect;

@@ -33,7 +33,7 @@
 	[super viewDidLoad];
 	self.tableView.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1.0];
 	self.clearsSelectionOnViewWillAppear = YES;
-	self.contentSizeForViewInPopover = CGSizeMake(400.0, 1024.0);
+	self.preferredContentSize = CGSizeMake(400.0, 1024.0);
 	self.tableView.rowHeight = 64.0;
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDocSet:)];
 	self.navigationItem.rightBarButtonItem = [self editButtonItem];
@@ -88,7 +88,7 @@
 	DownloadViewController *vc = [[DownloadViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
 	navController.modalPresentationStyle = UIModalPresentationFormSheet;
-	[self presentModalViewController:navController animated:YES];
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 - (void)showInfo:(id)sender
@@ -99,7 +99,7 @@
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
 		navController.modalPresentationStyle = UIModalPresentationFormSheet;
 	}
-	[self.view.window.rootViewController presentModalViewController:navController animated:YES];
+    [self.view.window.rootViewController presentViewController:navController animated:YES completion:nil];
 }
 
 - (void)docSetsChanged:(NSNotification *)notification

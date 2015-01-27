@@ -50,4 +50,6 @@ typedef void(^DocSetSearchCompletionHandler)(NSString *searchTerm, NSArray *resu
 - (NSURL *)webURLForNode:(NSManagedObject *)node;
 - (NSURL *)webURLForLocalURL:(NSURL *)localURL;
 
+- (NSString *)anchorForNode:(NSManagedObject *)node;
+
 @end

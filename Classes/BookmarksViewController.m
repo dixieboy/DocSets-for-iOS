@@ -27,7 +27,7 @@
 		if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
 			self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
 		} else {
-			self.contentSizeForViewInPopover = CGSizeMake(320, 480);
+			self.preferredContentSize = CGSizeMake(320, 480);
 		}
 		
 		UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareBookmarks:)];
@@ -84,7 +84,7 @@
 		if (buttonIndex != alertView.cancelButtonIndex) {
 			BookmarkSyncLogViewController *vc = [[BookmarkSyncLogViewController alloc] initWithStyle:UITableViewStylePlain];
 			vc.title = NSLocalizedString(@"iCloud Sync Log", nil);
-			vc.contentSizeForViewInPopover = self.contentSizeForViewInPopover;
+			vc.preferredContentSize = self.preferredContentSize;
 			[self.navigationController pushViewController:vc animated:YES];
 		}
 	}
@@ -115,12 +115,12 @@
 	}
 	[mailComposer setMessageBody:html isHTML:YES];
 	
-	[self presentModalViewController:mailComposer animated:YES];
+    [self presentViewController:mailComposer animated:YES completion:nil];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
-	[controller dismissModalViewControllerAnimated:YES];
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)bookmarksDidUpdate:(NSNotification *)notification
@@ -143,7 +143,7 @@
 
 - (void)done:(id)sender
 {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
@@ -174,9 +174,10 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-		cell.textLabel.minimumFontSize = 13.0;
+//		cell.textLabel.minimumFontSize = 13.0;
+        cell.textLabel.minimumScaleFactor = 13.0;
 		cell.textLabel.adjustsFontSizeToFitWidth = YES;
-		cell.textLabel.lineBreakMode = UILineBreakModeMiddleTruncation;
+		cell.textLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
 	}
 	
 	NSDictionary *bookmark = [[[BookmarksManager sharedBookmarksManager] bookmarksForDocSet:docSet] objectAtIndex:indexPath.row];

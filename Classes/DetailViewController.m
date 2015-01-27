@@ -77,7 +77,7 @@
 	titleLabel.shadowColor = [UIColor whiteColor];
 	titleLabel.shadowOffset = CGSizeMake(0, 1);
 	titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
-	titleLabel.textAlignment = UITextAlignmentCenter;
+	titleLabel.textAlignment = NSTextAlignmentCenter;
 	titleLabel.backgroundColor = [UIColor clearColor];
 	titleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 	
@@ -207,13 +207,13 @@
 		outlinePopover = [[UIPopoverController alloc] initWithContentViewController:outlineViewController];
 		[outlinePopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 	} else {
-		[self presentModalViewController:outlineViewController animated:YES];
+        [self presentViewController:outlineViewController animated:YES completion:nil];
 	}
 }
 
 - (void)dismissOutline:(id)sender
 {
-	[self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)showActions:(id)sender
@@ -289,7 +289,7 @@
 			bookmarksPopover = [[UIPopoverController alloc] initWithContentViewController:navController];
 			[bookmarksPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 		} else {
-			[self presentModalViewController:navController animated:YES];
+            [self presentViewController:navController animated:YES completion:nil];
 		}
 	}
 }
@@ -315,17 +315,8 @@
 {
 	self.docSet = set;
 	NSURL *URL = [self.docSet URLForNode:node];
-	
-	NSString *nodeAnchor = nil;
-    @try {
-        nodeAnchor = [node valueForKey:@"kAnchor"];
-    }
-    @catch (NSException *exception) {
-        nodeAnchor = nil;
-    }
-    @finally {
-        
-    }
+    NSString *nodeAnchor = [self.docSet anchorForNode:node];
+
 	if (nodeAnchor.length == 0) nodeAnchor = nil;
 	
 	//Handle soft redirects (they otherwise break the history):	
@@ -394,7 +385,6 @@
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
 		[bookmarksPopover dismissPopoverAnimated:YES];
 	} else {
-//		[self dismissModalViewControllerAnimated:YES];
         [self dismissViewControllerAnimated:YES completion:nil];
 	}
 }

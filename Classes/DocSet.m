@@ -259,14 +259,28 @@
 - (NSURL *)URLForNode:(NSManagedObject *)node
 {
 	NSString *nodePath = nil;
+    BOOL existkPath = YES;
     @try {
         nodePath = [node valueForKey:@"kPath"];
     }
     @catch (NSException *exception) {
-        nodePath = nil;
+        existkPath = NO;
     }
     @finally {
         
+    }
+    
+    if (existkPath == NO) {
+        NSManagedObjectContext *moc = [self managedObjectContext];
+        
+        NSManagedObjectID *moID = [node objectID];
+        
+        NSFetchRequest *rootNodeRequest = [NSFetchRequest fetchRequestWithEntityName:@"NodeURL"];
+        [rootNodeRequest setPredicate:[NSPredicate predicateWithFormat:@"node == %@", moID]];
+        NSArray *rootNodes = [moc executeFetchRequest:rootNodeRequest error:NULL];
+        for (NSManagedObject *rootNode in rootNodes) {
+            nodePath = [rootNode valueForKey:@"path"];
+        }
     }
     
     if (nodePath == nil) {
@@ -281,11 +295,37 @@
 
 - (NSURL *)webURLForNode:(NSManagedObject *)node
 {
-	NSString *nodePath = [node valueForKey:@"kPath"];
+    NSString *webURL = nil;
+    NSString *nodePath = nil;
+    BOOL existkPath = YES;
+    @try {
+        nodePath = [node valueForKey:@"kPath"];
+        webURL = [node valueForKey:@"kURL"];
+    }
+    @catch (NSException *exception) {
+        existkPath = NO;
+    }
+    @finally {
+        
+    }
+    
+    if (existkPath == NO) {
+        NSManagedObjectContext *moc = [self managedObjectContext];
+        
+        NSManagedObjectID *moID = [node objectID];
+        
+        NSFetchRequest *rootNodeRequest = [NSFetchRequest fetchRequestWithEntityName:@"NodeURL"];
+        [rootNodeRequest setPredicate:[NSPredicate predicateWithFormat:@"node == %@", moID]];
+        NSArray *rootNodes = [moc executeFetchRequest:rootNodeRequest error:NULL];
+        for (NSManagedObject *rootNode in rootNodes) {
+            nodePath = [rootNode valueForKey:@"path"];
+            webURL = [rootNode valueForKey:@"baseURL"];
+        }
+    }
+    
 	if (nodePath) {
 		return [fallbackURL URLByAppendingPathComponent:nodePath];
 	} else {
-		NSString *webURL = [node valueForKey:@"kURL"];
 		if (webURL) {
 			return [NSURL URLWithString:webURL];
 		}
@@ -314,6 +354,36 @@
 	NSString *URLPath = [URLString substringFromIndex:prefixRange.location + prefixRange.length];
 	NSURL *webURL = [NSURL URLWithString:[[fallbackURL absoluteString] stringByAppendingFormat:@"/%@", URLPath]];
 	return webURL;
+}
+
+- (NSString *)anchorForNode:(NSManagedObject *)node
+{
+    NSString* nodeAnchor = nil;
+    BOOL existKAnchor = YES;
+    @try {
+        nodeAnchor = [node valueForKey:@"kAnchor"];
+    }
+    @catch (NSException *exception) {
+        existKAnchor = NO;
+    }
+    @finally {
+        
+    }
+    
+    if (existKAnchor == NO) {
+        NSManagedObjectContext *moc = [self managedObjectContext];
+        
+        NSManagedObjectID *moID = [node objectID];
+        
+        NSFetchRequest *rootNodeRequest = [NSFetchRequest fetchRequestWithEntityName:@"NodeURL"];
+        [rootNodeRequest setPredicate:[NSPredicate predicateWithFormat:@"node == %@", moID]];
+        NSArray *rootNodes = [moc executeFetchRequest:rootNodeRequest error:NULL];
+        for (NSManagedObject *rootNode in rootNodes) {
+            nodeAnchor = [rootNode valueForKey:@"anchor"];
+        }
+    }
+    
+    return nodeAnchor;
 }
 
 - (BOOL)nodeIsExpandable:(NSManagedObject *)node
