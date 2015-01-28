@@ -47,7 +47,7 @@
 - (DocSetDownload *)downloadForURL:(NSString *)URL;
 - (void)stopDownload:(DocSetDownload *)download;
 - (DocSet *)downloadedDocSetWithName:(NSString *)docSetName;
-
+- (void)reloadDownloadedDocSets;
 @end
 
 

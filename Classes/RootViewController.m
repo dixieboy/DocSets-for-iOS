@@ -49,6 +49,10 @@
 	[aboutButton addTarget:self action:@selector(showInfo:) forControlEvents:UIControlEventTouchUpInside];
 	[footerView addSubview:aboutButton];
 	self.tableView.tableFooterView = footerView;
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self setRefreshControl:refreshControl];
 	
 	double delayInSeconds = 0.5;
 	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
@@ -82,6 +86,13 @@
 }
 
 #pragma mark -
+
+- (void)refresh:(id)sender
+{
+    [[DocSetDownloadManager sharedDownloadManager] reloadDownloadedDocSets];
+    
+    [(UIRefreshControl *)sender endRefreshing];
+}
 
 - (void)addDocSet:(id)sender
 {

@@ -81,7 +81,7 @@
 	titleLabel.backgroundColor = [UIColor clearColor];
 	titleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 	
-	CGFloat topToolbarHeight = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) ? 44.0 : 0.0;
+	CGFloat topToolbarHeight = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) ? 64.0 : 0.0;
 	webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, topToolbarHeight, self.view.bounds.size.width, self.view.bounds.size.height - topToolbarHeight)];
 	webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	webView.scalesPageToFit = YES;//([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
@@ -90,8 +90,9 @@
 	[self.view addSubview:webView];
 	
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-		toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, topToolbarHeight)];
+		toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 20, self.view.bounds.size.width, topToolbarHeight-20)];
 		toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        toolbar.clipsToBounds = YES;
 		toolbar.items = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? portraitToolbarItems : landscapeToolbarItems;
 		[self.view addSubview:toolbar];
 		titleLabel.center = CGPointMake(toolbar.bounds.size.width * 0.5, toolbar.bounds.size.height * 0.5);
@@ -263,8 +264,16 @@
 		} else {
 			NSURL *webURL = [self.docSet webURLForLocalURL:URL];
 			if (buttonIndex == 1) {
+                
+//                NSString *js = [NSString stringWithFormat:@"var p=document.getElementsByTagName('*');for(i=0;i<p.length;i++){if(p[i].style.fontSize){var s=parseInt(p[i].style.fontSize.replace(\"px\",\"\"));}else{var s=12;}s+=2;p[i].style.fontSize=s+\"px\"}"];
+//                [webView stringByEvaluatingJavaScriptFromString:js];
+                
 				[[UIPasteboard generalPasteboard] setString:[webURL absoluteString]];
 			} else if (buttonIndex == 2) {
+                
+//                NSString *js = [NSString stringWithFormat:@"var p=document.getElementsByTagName('*');for(i=0;i<p.length;i++){if(p[i].style.fontSize){var s=parseInt(p[i].style.fontSize.replace(\"px\",\"\"));}else{var s=12;}s-=2;p[i].style.fontSize=s+\"px\"}"];
+//                [webView stringByEvaluatingJavaScriptFromString:js];
+                
 				[[UIApplication sharedApplication] openURL:webURL];
 			}
 		}

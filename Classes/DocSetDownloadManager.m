@@ -14,7 +14,6 @@
 @interface DocSetDownloadManager ()
 
 - (void)startNextDownload;
-- (void)reloadDownloadedDocSets;
 - (void)downloadFinished:(DocSetDownload *)download;
 - (void)downloadFailed:(DocSetDownload *)download;
 
