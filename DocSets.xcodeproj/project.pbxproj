@@ -125,6 +125,8 @@
 		7FF70B5412AD15B7001FF09F /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FF70B5212AD15B7001FF09F /* Back.png */; };
 		7FF70B5512AD15B7001FF09F /* Forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FF70B5312AD15B7001FF09F /* Forward.png */; };
 		7FF70C1512AD3FB8001FF09F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FF70C1412AD3FB8001FF09F /* libz.dylib */; };
+		B856187B1A7A3358007E1D40 /* Introduction.html in Resources */ = {isa = PBXBuildFile; fileRef = B856186F1A7A3358007E1D40 /* Introduction.html */; };
+		B85618981A7A35E3007E1D40 /* CSS in Resources */ = {isa = PBXBuildFile; fileRef = B85618971A7A35E3007E1D40 /* CSS */; };
 		B8576F701A6FA21E00FCC820 /* Default-1334@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8576F6E1A6FA21E00FCC820 /* Default-1334@2x.png */; };
 		B8576F711A6FA21E00FCC820 /* Default-2208@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8576F6F1A6FA21E00FCC820 /* Default-2208@3x.png */; };
 		B8576F731A6FA2C200FCC820 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8576F721A6FA2C200FCC820 /* Images.xcassets */; };
@@ -292,6 +294,8 @@
 		7FF70B5212AD15B7001FF09F /* Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Back.png; sourceTree = "<group>"; };
 		7FF70B5312AD15B7001FF09F /* Forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Forward.png; sourceTree = "<group>"; };
 		7FF70C1412AD3FB8001FF09F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		B856186F1A7A3358007E1D40 /* Introduction.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Introduction.html; sourceTree = "<group>"; };
+		B85618971A7A35E3007E1D40 /* CSS */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CSS; sourceTree = "<group>"; };
 		B8576F6E1A6FA21E00FCC820 /* Default-1334@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1334@2x.png"; sourceTree = "<group>"; };
 		B8576F6F1A6FA21E00FCC820 /* Default-2208@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-2208@3x.png"; sourceTree = "<group>"; };
 		B8576F721A6FA2C200FCC820 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DocSets/Images.xcassets; sourceTree = "<group>"; };
@@ -363,6 +367,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B85618971A7A35E3007E1D40 /* CSS */,
+				B856186F1A7A3358007E1D40 /* Introduction.html */,
 				B8576F721A6FA2C200FCC820 /* Images.xcassets */,
 				7F1D42C814D1628400A85CB3 /* Info.plist */,
 				7F1D42C614D1627D00A85CB3 /* AvailableDocSets.plist */,
@@ -676,6 +682,7 @@
 				7FF708BE12AC3ED6001FF09F /* Enum.png in Resources */,
 				7FF708BF12AC3ED6001FF09F /* Field.png in Resources */,
 				7FF708C012AC3ED6001FF09F /* Function.png in Resources */,
+				B85618981A7A35E3007E1D40 /* CSS in Resources */,
 				7FF708C112AC3ED6001FF09F /* Global.png in Resources */,
 				7FF708C212AC3ED6001FF09F /* Local.png in Resources */,
 				7FF708C312AC3ED6001FF09F /* Macro.png in Resources */,
@@ -735,6 +742,7 @@
 				7F7862F5150D4390003CFB2E /* Default-Portrait~ipad@2x.png in Resources */,
 				7F7862F8150D4E9C003CFB2E /* AboutIcon.png in Resources */,
 				7F7862F9150D4E9C003CFB2E /* About.html in Resources */,
+				B856187B1A7A3358007E1D40 /* Introduction.html in Resources */,
 				7FEFBF3C156D3B0700C75316 /* BubbleGreen@2x.png in Resources */,
 				7FEFBF3D156D3B0700C75316 /* BubbleOrange@2x.png in Resources */,
 				7FEFBF3E156D3B0700C75316 /* BubbleRed@2x.png in Resources */,

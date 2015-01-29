@@ -60,7 +60,7 @@
 
 - (void)saveInterfaceState
 {
-	NSURL *currentURL = nil;
+	NSString *currentURL = nil;
 	NSMutableArray *navigationStack = [NSMutableArray array];
 	for (UIViewController *vc in rootNavigationController.viewControllers) {
 		if ([vc isKindOfClass:[DocSetViewController class]]) {
@@ -123,16 +123,18 @@
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
 		self.detailViewController.docSet = selectedDocSet;
 	}
-	NSURL *currentURL = [interfaceStateInfo objectForKey:@"currentURL"];
+	NSString *currentURL = [interfaceStateInfo objectForKey:@"currentURL"];
+    currentURL = [NSString stringWithFormat:@"%@/%@", [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject], currentURL];
+    NSURL* url = [NSURL fileURLWithPath:currentURL];
 	if (currentURL) {
 		if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-			[self.detailViewController openURL:currentURL withAnchor:nil];
+			[self.detailViewController openURL:url withAnchor:nil];
 		} else {
 			DetailViewController *vc = [[DetailViewController alloc] initWithNibName:nil bundle:nil];
 			[rootNavigationController pushViewController:vc animated:NO];
 			vc.docSet = selectedDocSet;
 			[vc view];
-			[vc openURL:currentURL withAnchor:nil];
+			[vc openURL:url withAnchor:nil];
 		}
 	}
 }

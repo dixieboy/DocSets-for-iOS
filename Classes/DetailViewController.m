@@ -116,6 +116,11 @@
     if (self.goURL) {
         [self openURL:self.goURL withAnchor:self.goAnchor];
     }
+    
+    NSURL* URL = [[NSBundle mainBundle] URLForResource:@"Introduction" withExtension:@"html"];
+//    NSURL* url = [NSURL fileURLWithPath:file];
+    NSURLRequest* request = [NSURLRequest requestWithURL:URL];
+    [webView loadRequest:request];
 }
 
 - (void)docSetWillBeDeleted:(NSNotification *)notification
@@ -335,7 +340,14 @@
 		NSTextCheckingResult *result = [regex firstMatchInString:html options:0 range:NSMakeRange(0, html.length)];
 		if (result.numberOfRanges > 1) {
 			NSString *relativeRedirectPath = [html substringWithRange:[result rangeAtIndex:1]];
+        
 			URL = [NSURL URLWithString:relativeRedirectPath relativeToURL:URL];
+            
+//            //本来以为是url的原因，和url无关。
+//            NSString* src = [URL path];
+//            NSString* path = [src stringByDeletingLastPathComponent];
+//            NSString* file = [NSString stringWithFormat:@"%@/%@", path, relativeRedirectPath];
+//            URL = [NSURL fileURLWithPath:file];
 		}
 	}
     
@@ -401,7 +413,7 @@
 - (void)openURL:(NSURL *)URL withAnchor:(NSString *)anchor
 {
     if (webView) {
-        if (anchor && 0) {
+        if (anchor) {
             NSURL *URLWithAnchor = [NSURL URLWithString:[[URL absoluteString] stringByAppendingFormat:@"#%@", anchor]];
             [webView loadRequest:[NSURLRequest requestWithURL:URLWithAnchor]];
         } else {
@@ -519,8 +531,13 @@
 	
 	NSString *currentURLString = [webView stringByEvaluatingJavaScriptFromString:@"window.location.href"];
 	currentURLString = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)currentURLString, CFSTR("#"), CFSTR(""), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
-	self.currentURL = [NSURL URLWithString:currentURLString];
-	outlineButtonItem.enabled = ([self bookPathForURL:self.currentURL] != nil);
+    NSRange range = [currentURLString rangeOfString:@"Documents/"];
+    NSString *relateString = currentURLString;
+    if (range.location != NSNotFound) {
+        relateString = [currentURLString substringFromIndex:range.location + range.length];
+    }
+	self.currentURL = relateString;
+	outlineButtonItem.enabled = ([self bookPathForURL:[NSURL URLWithString:currentURLString]] != nil);
 }
 
 - (NSString *)bookPathForURL:(NSURL *)URL

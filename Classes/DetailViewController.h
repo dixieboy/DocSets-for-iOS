@@ -39,7 +39,7 @@
 }
 
 @property (nonatomic, strong) DocSet *docSet;
-@property (nonatomic, strong) NSURL *currentURL;
+@property (nonatomic, strong) NSString *currentURL;
 @property (nonatomic, strong) NSURL *goURL;
 @property (nonatomic, strong) NSString *goAnchor;
 
